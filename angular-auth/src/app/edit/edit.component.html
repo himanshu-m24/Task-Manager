@@ -1,0 +1,38 @@
+
+<div class="container d-flex justify-content-center" >
+    <div class="p-4 mt-8 " style="background-color: black; border-radius: 8px; max-width: 360px; width: 100%; border: 1px solid #666666;">
+      <h4 class="text-white text-center mb-3">Edit Task</h4>
+      
+      <form (ngSubmit)="addTask()" #taskForm="ngForm">
+        <div class="mb-3">
+          <label for="taskTitle" class="form-label text-white">Task Title</label>
+          <input type="text" class="form-control bg-dark text-white border-white" id="taskTitle" [(ngModel)]="task.title" name="title" placeholder="Title of Your Task" required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="taskDesc" class="form-label text-white">Description</label>
+          <input type="text" class="form-control bg-dark text-white border-white" id="taskDesc" [(ngModel)]="task.description" name="description" placeholder="Task Description">
+        </div>
+  
+        <div class="mb-3">
+          <label for="taskStatus" class="form-label text-white">Status</label>
+          <select class="form-select bg-dark text-white border-white" id="taskStatus" [(ngModel)]="task.status" name="status" required>
+            <option value="" disabled selected>Select Status</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        
+        <div class="mb-3">
+          <label for="Date" class="form-label text-white">Due Date</label>
+          <input type="date" class="form-control bg-dark text-white border-white" id="Date" [(ngModel)]="task.Date" name="Date" required>
+        </div>
+  
+        <div class="text-center">
+          <button type="submit" class="btn" style="background-color: #10e68d; color: white;" [disabled]="taskForm.invalid">Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

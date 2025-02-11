@@ -1,0 +1,9 @@
+:host {
+    display: block;
+     background: url('https://images.ctfassets.net/1fvlg6xqnm65/7d50ieXJ3zY9eW0OYjQzvc/7f90ac59781d414194e91496a58fef05/MercedesAMGF1_flow_bg.png') 
+                no-repeat center center fixed; 
+     background-size: cover; 
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
