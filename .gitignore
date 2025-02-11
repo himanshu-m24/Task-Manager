@@ -1,0 +1,4 @@
+angular-auth/node_modules/
+springboot_backend/target/
+.idea/
+.vscode/

@@ -1,0 +1,11 @@
+{
+  "routes": {
+    "/": {},
+    "/addtask": {},
+    "/home": {},
+    "/login": {},
+    "/navbar": {},
+    "/register": {},
+    "/report": {}
+  }
+}
