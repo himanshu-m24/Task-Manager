@@ -16,7 +16,18 @@ export class TaskService {
   }
 
   // Delete task
-  deleteTask(taskId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${taskId}`);
+  // deleteTask(taskId: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/${taskId}`);
+  // }
+
+  deleteTask(taskId: number) {
+    return this.http.delete(`http://localhost:8080/api/auth/tasks/${taskId}`);
   }
+  
+
+  addTask(task: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add`, task);
+  }
+
+  
 }

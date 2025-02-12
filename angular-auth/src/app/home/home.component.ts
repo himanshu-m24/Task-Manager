@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +21,7 @@ export class HomeComponent implements OnInit {
   filteredItems: any[] = [];
   searchQuery: string = '';
 
-  constructor(private router: Router, private taskService: TaskService) {}
+  constructor(private router: Router, private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.fetchTasks();
@@ -42,15 +46,35 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  deleteItem(taskId: number, index: number): void {
+  deleteItem(taskId: number): void {
     this.taskService.deleteTask(taskId).subscribe(
       () => {
-        this.tasks.splice(index, 1);
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
         this.filteredItems = [...this.tasks];
+        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error deleting task:', error);
       }
     );
   }
+
+  // Download Excel file function
+  downloadExcel(task: any): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet([{
+      'ID': task.id,
+      'Title': task.title,
+      'Description': task.description,
+      'Status': task.status,
+      'Due Date': task.dueDate // Ensure this is in DD-MM-YYYY format
+    }]);
+  
+    const workbook: XLSX.WorkBook = { Sheets: { 'Task': worksheet }, SheetNames: ['Task'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  
+    const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    FileSaver.saveAs(data, `Task_${task.id}.xlsx`);
+  }
+  
+  
 }

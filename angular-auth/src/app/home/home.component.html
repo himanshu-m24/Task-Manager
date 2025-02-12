@@ -27,13 +27,15 @@
           <td>{{task.id}}</td>
           <td>{{task.title}}</td>
           <td>{{task.description}}</td>
-          <td>{{task.status}}</td>
+          <td>{{task.status}}</td> 
           <td>{{task.date}}</td>
           <td>
             <!-- Action Buttons -->
-            <button class="btn"  style=" color: black;"  [routerLink]="'/home/edit'"><i class="fas fa-pencil fa-fw"></i> Edit</button>
-            <button class="btn"  (click)="deleteItem(task.id,i)" style=" color: black;"><i class="fas fa-trash"></i> Delete</button>
-            <button class="btn" style=" color: black;"><i class="fas fa-upload"></i> Upload</button>
+            <button class="btn"  style=" color: black;"  [routerLink]="'/edit'"><i class="fas fa-pencil fa-fw"></i> Edit</button>
+            <button class="btn"  (click)="deleteItem(task.id)" style=" color: black;"><i class="fas fa-trash"></i> Delete</button>
+            <button class="btn" (click)="downloadExcel(task)" style=" color: black;" ><i class="fa fa-download" aria-hidden="true"></i> Download
+            </button>
+            
           </td>
         </tr>
       </tbody>

@@ -10,7 +10,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReportComponent } from './report/report.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { EditComponent } from './edit/edit.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'report', component: ReportComponent},
+  { path: 'edit', component: EditComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
   
 ];
@@ -41,6 +43,7 @@ export const routes: Routes = [
     NgxPaginationModule,
     FormsModule,
     CommonModule,
+    HttpClientModule
    ],
   providers: [],
  
