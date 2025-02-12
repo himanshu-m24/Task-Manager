@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import * as XLSX from 'xlsx';
@@ -11,12 +11,26 @@ import { saveAs } from "file-saver-es";
   templateUrl: './report.component.html',
   styleUrl: './report.component.css'
 })
-export class ReportComponent {
+export class ReportComponent implements OnInit{
+  isReset: boolean = false; // Initialize as false to show table by default
+
+  statuses: string[] = ['in_progress', 'pending', 'completed'];
+
+  // Add a display map for prettier status display
+  statusDisplay: { [key: string]: string } = {
+    'in_progress': 'In-Progress',
+    'pending': 'Pending',
+    'completed': 'Completed', 
+  };
+
+  filteredStatuses: string[] = [...this.statuses];
+  selectedStatus: string | null = null;
+  searchTerm: string = '';
   fromDate: string = '';
   toDate: string = '';
 
   
-  tasks:any = [
+  tasks:any [] = [
     {
       id: 1,
       title: "Website Redesign",
@@ -159,24 +173,65 @@ export class ReportComponent {
     }
   ];
 
-  filteredTasks =[...this.tasks];
+  filteredTasks: any[] = [...this.tasks];
 
-  search(){
-    if (this.fromDate && this.toDate){
-      const from = new Date(this.fromDate).getTime();
-      const to = new Date(this.toDate).getTime();
-      this.filteredTasks = this.tasks.filter((task: { date: string | number | Date; }) => {
-        const taskDate = new Date(task.date).getTime();
-        return taskDate >= from && taskDate <= to;
-      });
-    }
+  constructor() {}
+
+  ngOnInit() {
+    // Initialize filtered tasks with all tasks
+    this.filteredTasks = [...this.tasks];
   }
 
+  getStatusDisplay(status: string): string {
+    return this.statusDisplay[status] || status;
+  }
+
+  // **Filter status options based on input**
+  filterStatuses() {
+    if (!this.searchTerm) {
+      this.filteredStatuses = [...this.statuses];
+      return;
+    }
+    
+    this.filteredStatuses = this.statuses.filter(status =>
+      this.getStatusDisplay(status).toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  // **Select status and update dropdown text**
+  selectStatus(status: string) {
+    this.selectedStatus = status.toLowerCase().replace('-', '_');
+    this.searchTerm = '';
+    this.filteredStatuses = [...this.statuses];
+    this.search();
+    this.isReset = false; // Ensure table is visible after search
+  }
+
+   // Modified search method
+   search() {
+    this.filteredTasks = this.tasks.filter(task => {
+      const dateMatches = (!this.fromDate || new Date(task.date) >= new Date(this.fromDate)) &&
+                         (!this.toDate || new Date(task.date) <= new Date(this.toDate));
+      
+      const statusMatches = !this.selectedStatus || 
+                           task.status.toLowerCase() === this.selectedStatus.toLowerCase();
+      
+      return dateMatches && statusMatches;
+    });
+  }
+
+  // **Reset all filters**
   reset() {
+    this.selectedStatus = null;
+    this.searchTerm = '';
     this.fromDate = '';
     this.toDate = '';
-    this.filteredTasks = [...this.tasks]; // Reset to original list
+    this.filteredTasks = [...this.tasks];
+    this.filteredStatuses = [...this.statuses];
+    this.isReset = true; // Hide table on reset
   }
+
+  // **Download filtered data as Excel**
   downloadExcel() {
     const worksheet = XLSX.utils.json_to_sheet(this.filteredTasks);
     const workbook = XLSX.utils.book_new();
