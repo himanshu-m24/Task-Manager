@@ -16,7 +16,7 @@ export class ReportComponent {
   toDate: string = '';
 
   
-  tasks:any = [
+  tasks:any [] = [
     {
       id: 1,
       title: "Website Redesign",
@@ -159,24 +159,35 @@ export class ReportComponent {
     }
   ];
 
-  filteredTasks =[...this.tasks];
+  // fillter to apply date with condition
+  filteredTasks: any[] = [];
 
-  search(){
+  constructor() {
+    this.filteredTasks = [...this.tasks]; // Initially show all tasks
+  }
+
+  search() {
     if (this.fromDate && this.toDate){
       const from = new Date(this.fromDate).getTime();
       const to = new Date(this.toDate).getTime();
-      this.filteredTasks = this.tasks.filter((task: { date: string | number | Date; }) => {
+      this.filteredTasks = this.tasks.filter(task => {
         const taskDate = new Date(task.date).getTime();
         return taskDate >= from && taskDate <= to;
       });
+    } else {
+      this.filteredTasks = []; // Hide table if no date selected
     }
+
   }
 
   reset() {
     this.fromDate = '';
     this.toDate = '';
-    this.filteredTasks = [...this.tasks]; // Reset to original list
+    this.filteredTasks = []; // Reset to original list
+
+    // Reset any other search parameters
   }
+
   downloadExcel() {
     const worksheet = XLSX.utils.json_to_sheet(this.filteredTasks);
     const workbook = XLSX.utils.book_new();
