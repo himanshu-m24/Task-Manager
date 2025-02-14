@@ -22,6 +22,8 @@ export class LoginComponent {
       .subscribe(
         response => {
           localStorage.setItem('token', response.token); // Store token
+          console.log(localStorage.getItem('token'));
+
           this.message = response.message;
           this.router.navigate(['/home']); // Redirect to home page
         },

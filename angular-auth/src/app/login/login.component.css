@@ -5,12 +5,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
- 
-=======
-  /* background: url('https://images.ctfassets.net/1fvlg6xqnm65/7d50ieXJ3zY9eW0OYjQzvc/7f90ac59781d414194e91496a58fef05/MercedesAMGF1_flow_bg.png') 
-              no-repeat center center fixed; */
->>>>>>> fdd13da995400fbb3ce8b1671e3523611c560664
   background-size: cover;
   font-family: Arial, sans-serif;
 }
@@ -22,15 +16,11 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-<<<<<<< HEAD
-  height: 100%; 
-  background: url('https://images.ctfassets.net/1fvlg6xqnm65/7d50ieXJ3zY9eW0OYjQzvc/7f90ac59781d414194e91496a58fef05/MercedesAMGF1_flow_bg.png') 
-  no-repeat center center fixed; /* Take full height */
-=======
+
   height: 100%; /* Take full height */
   background: url('https://images.ctfassets.net/1fvlg6xqnm65/7d50ieXJ3zY9eW0OYjQzvc/7f90ac59781d414194e91496a58fef05/MercedesAMGF1_flow_bg.png') 
               no-repeat center center fixed;
->>>>>>> fdd13da995400fbb3ce8b1671e3523611c560664
+
 }
 
 /* Login Box */

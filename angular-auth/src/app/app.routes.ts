@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'report', component: ReportComponent},
-  { path: 'edit', component: EditComponent},
+  { path: 'edit/:id', component: EditComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
   
 ];

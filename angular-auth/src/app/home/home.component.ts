@@ -9,6 +9,14 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import * as FileSaver from 'file-saver';
 
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  dueDate: string;
+}
+
 @Component({
   selector: 'app-home',
   imports: [CommonModule, NgxPaginationModule, FormsModule, RouterLink],
@@ -28,16 +36,28 @@ export class HomeComponent implements OnInit {
   }
 
   fetchTasks(): void {
-    this.taskService.getTasks().subscribe(
-      (data) => {
+    this.taskService.getTasks().subscribe({
+      next: (data: Task[]) => {
         this.tasks = data;
         this.filteredItems = this.tasks;
+        this.cdr.detectChanges();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching tasks:', error);
       }
-    );
+    });
+
   }
+
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    
+    // Assuming date format is DD-MM-YYYY
+    const [day, month, year] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+  }
+
 
   applyFilters(): void {
     const queryTerm = this.searchQuery.toLowerCase();

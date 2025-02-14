@@ -9,49 +9,10 @@
   </div>
   
   
-    <!-- Table -->
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr style="color: white; border-bottom: 1px solid #10e68d;">
-            <th scope="col">#</th>
-            <th scope="col">Task Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
-            <th scope="col">Due Date</th>
-            <th scope="col">Action</th> 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }; let i = index"
-              style="color: white; border-bottom: 1px solid #10e68d; background-color: #000 !important;">
-            <td>{{task.id}}</td>
-            <td>{{task.title}}</td>
-            <td>{{task.description}}</td>
-            <td>{{task.status}}</td>
-            <td>{{task.date}}</td>
-            <td>
-              <!-- Action Buttons -->
-              <button class="btn"  style=" color: black;"  [routerLink]="'/home/edit'"><i class="fas fa-pencil fa-fw"></i> Edit</button>
-              <button class="btn"  (click)="deleteItem(task.id,i)" style=" color: black;"><i class="fas fa-trash"></i> Delete</button>
-              <button class="btn" style=" color: black;"><i class="fas fa-upload"></i> Upload</button>
-            </td>
-          </tr>
-        </tbody>
-        
-      </table>
-  
-      <!-- Pagination -->
-      <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <pagination-controls (pageChange)="p = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-      </div>
-    </div>
-  
-</div>
+    
 
 
 
-<<<<<<< HEAD
   <!-- Table -->
   <div class="table-responsive">
     <table class="table table-striped table-hover">
@@ -72,10 +33,14 @@
           <td>{{task.title}}</td>
           <td>{{task.description}}</td>
           <td>{{task.status}}</td> 
-          <td>{{task.date}}</td>
+          <!-- <td>{{task.dueDate}}</td> -->
+          <td>{{formatDate(task.dueDate)}}</td>
+
           <td>
             <!-- Action Buttons -->
-            <button class="btn"  style=" color: black;"  [routerLink]="'/edit'"><i class="fas fa-pencil fa-fw"></i> Edit</button>
+            <button class="btn" style="color: black;" [routerLink]="['/edit', task.id]">
+              <i class="fas fa-pencil fa-fw"></i> Edit
+            </button>            
             <button class="btn"  (click)="deleteItem(task.id)" style=" color: black;"><i class="fas fa-trash"></i> Delete</button>
             <button class="btn" (click)="downloadExcel(task)" style=" color: black;" ><i class="fa fa-download" aria-hidden="true"></i> Download
             </button>
@@ -92,5 +57,4 @@
     </div>
   </div>
 
-=======
->>>>>>> fdd13da995400fbb3ce8b1671e3523611c560664
+
