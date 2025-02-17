@@ -27,16 +27,15 @@ export class TaskService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-    // ✅ Fetch a Task by ID with token
+   
     getTaskById(taskId: number): Observable<any> {
-      return this.http.get<any>(`${this.apiUrl}/${taskId}`, { headers: this.getHeaders() });
+      const headers = this.getHeaders();
+      return this.http.get<any>(`${this.apiUrl}/${taskId}`, { headers });
     }
-  
-
-  //  Update an existing task
-  updateTask(task: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${task.id}`, task);
-  }
+    updateTask(task: any): Observable<any> {
+      return this.http.put(`${this.apiUrl}/${task.id}`, task, { headers: this.getHeaders() });
+    }
+    
 
   //  Delete a task
   deleteTask(taskId: number) {
@@ -47,4 +46,5 @@ export class TaskService {
   addTask(task: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/add`, task);
   }
+  
 }

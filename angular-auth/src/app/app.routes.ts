@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { ReportComponent } from './report/report.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditComponent } from './edit/edit.component';
+import { TaskSearchComponent } from './task-search/task-search.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'report', component: ReportComponent},
+  { path: 'task-search', component: TaskSearchComponent},
   { path: 'edit/:id', component: EditComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
   

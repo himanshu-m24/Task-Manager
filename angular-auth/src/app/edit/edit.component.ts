@@ -25,17 +25,28 @@ export class EditComponent {
     private route: ActivatedRoute
   ) {}
 
+  // ngOnInit() {
+  //   const taskId = this.route.snapshot.paramMap.get('id'); // ✅ Get ID from URL
+  //   if (taskId) {
+  //     this.taskService.getTaskById(Number(taskId)).subscribe(task => {
+  //       this.task = task; // ✅ Set task data
+  //     });
+  //   }
+  // }
   ngOnInit() {
-    const taskId = this.route.snapshot.paramMap.get('id'); // ✅ Get ID from URL
+    const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
-      this.taskService.getTaskById(Number(taskId)).subscribe(task => {
-        this.task = task; // ✅ Set task data
+      this.taskService.getTaskById(Number(taskId)).subscribe({
+        next: (task) => { this.task = task; },
+        error: (err) => { console.error('Error fetching task:', err); }
       });
     }
   }
+  
 
   updateTask() {
     this.taskService.updateTask(this.task).subscribe(response => {
+      console.log(this.task);
       console.log('Task updated successfully:', response);
       this.router.navigate(['/home']); // ✅ Redirect after updating
     }, error => {

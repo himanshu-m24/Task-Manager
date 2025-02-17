@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <h2>Search Task by ID</h2>
+    <div class="mb-3">
+      <label for="taskId">Task ID:</label>
+      <input type="number" id="taskId" class="form-control" [(ngModel)]="taskId" placeholder="Enter task ID" />
+    </div>
+    <button class="btn btn-primary" (click)="searchTask()">Search</button>
+    <div *ngIf="searchError" class="text-danger mt-2">
+      {{ searchError }}
+    </div>
+  
+    <div *ngIf="task" class="mt-4">
+      <h3>Task Details</h3>
+      <p><strong>ID:</strong> {{ task.id }}</p>
+      <p><strong>Title:</strong> {{ task.title }}</p>
+      <p><strong>Description:</strong> {{ task.description }}</p>
+      <p><strong>Status:</strong> {{ task.status }}</p>
+      <p><strong>Due Date:</strong> {{ task.dueDate | date:'dd-MM-yyyy' }}</p>
+      
+      <hr />
+      <h4>Upload Images</h4>
+      <div class="mb-3">
+        <label for="file1">Upload Image 1:</label>
+        <input type="file" id="file1" (change)="onFile1Change($event)" class="form-control" />
+        <button class="btn btn-secondary mt-2" (click)="uploadFile1()">Upload Image 1</button>
+      </div>
+      <div class="mb-3">
+        <label for="file2">Upload Image 2:</label>
+        <input type="file" id="file2" (change)="onFile2Change($event)" class="form-control" />
+        <button class="btn btn-secondary mt-2" (click)="uploadFile2()">Upload Image 2</button>
+      </div>
+    </div>
+  </div>
+  

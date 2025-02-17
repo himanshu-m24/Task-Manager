@@ -11,7 +11,8 @@ import { TaskService } from '../services/task.service';
   styleUrl: './addtask.component.css'
 })
 export class AddtaskComponent {
-  task = {
+  task:any = {
+    id:null,
     title: '',
     description: '',
     dueDate: '',
